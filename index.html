@@ -140,6 +140,54 @@
     closeModal('login');
   }
 </script>
+<!-- Cargar la librería oficial de Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
+<script>
+  function openModal(id) { 
+    document.getElementById('modal-' + id).classList.add('active'); 
+  }
+  
+  function closeModal(id) { 
+    document.getElementById('modal-' + id).classList.remove('active'); 
+  }
+
+  // Configuración del Selector de Cuentas de Google
+  window.onload = function () {
+    google.accounts.id.initialize({
+      // REEMPLAZA ESTO: Debes obtener tu Client ID en Google Cloud Console
+      client_id: "TU_CLIENT_ID_DE_GOOGLE.apps.googleusercontent.com",
+      callback: handleCredentialResponse,
+      context: "signin",
+      ux_mode: "popup", // Abre la ventana emergente oficial
+      auto_select: false // Obliga a que el usuario siempre vea el selector si hay varias cuentas
+    });
+  };
+
+  function handleCredentialResponse(response) {
+    // Aquí recibes el Token (JWT) de Google con la info del usuario
+    console.log("Encoded JWT ID token: " + response.credential);
+    
+    // Simulación de éxito tras elegir cuenta
+    closeModal('login');
+    alert("¡Sesión iniciada con éxito! Bienvenido a SmartAudit IA.");
+    
+    // Aquí normalmente enviarías response.credential a tu servidor para validar
+  }
+
+  // Función vinculada al botón del selector
+  function handleGoogleAuth() {
+    // Invoca el selector de cuentas oficial de Google
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // Si el "One Tap" no se muestra, forzamos la selección manual
+        google.accounts.id.renderButton(
+          document.getElementById("google-button-container"),
+          { theme: "outline", size: "large", width: "100%" }
+        );
+      }
+    });
+  }
+</script>
 </body>
 </html>
