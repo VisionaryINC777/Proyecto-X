@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+cat > /tmp/build_smartaudit.py << 'PYEOF'
+html = open('/home/claude/smartaudit.html', 'w', encoding='utf-8')
+html.write("""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -6,2313 +8,302 @@
 <meta name="description" content="SmartAudit IA — Auditoría financiera inteligente. Transforma tus facturas PDF en datos accionables con inteligencia artificial.">
 <meta name="robots" content="index, follow">
 <title>SmartAudit IA — Auditoría Financiera Inteligente</title>
+<script src="https://accounts.google.com/gsi/client" async defer><\/script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --navy: #1B263B;
-    --navy-light: #243347;
-    --navy-dark: #111b2a;
-    --cobalt: #0D6EFD;
-    --cobalt-hover: #0a5fd8;
-    --carbon: #415A77;
-    --carbon-light: #5a7490;
-    --white: #ffffff;
-    --off-white: #f8f9fc;
-    --border: rgba(27,38,59,0.12);
-    --border-light: rgba(27,38,59,0.07);
-    --radius: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 20px;
-    --shadow: 0 2px 12px rgba(27,38,59,0.08);
-    --shadow-md: 0 4px 24px rgba(27,38,59,0.12);
-    --shadow-lg: 0 8px 40px rgba(27,38,59,0.16);
+    --navy: #1B263B; --navy-light: #243347; --navy-dark: #111b2a;
+    --cobalt: #0D6EFD; --cobalt-hover: #0a5fd8; --carbon: #415A77; --carbon-light: #5a7490;
+    --white: #ffffff; --off-white: #f8f9fc; --border: rgba(27,38,59,0.12); --border-light: rgba(27,38,59,0.07);
+    --radius: 8px; --radius-lg: 12px; --radius-xl: 20px;
+    --shadow: 0 2px 12px rgba(27,38,59,0.08); --shadow-md: 0 4px 24px rgba(27,38,59,0.12); --shadow-lg: 0 8px 40px rgba(27,38,59,0.16);
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--carbon);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(27,38,59,0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  .nav-logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--cobalt);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--carbon); line-height: 1.6; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(27,38,59,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--cobalt); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .nav-logo-icon svg { width: 18px; height: 18px; fill: none; stroke: white; stroke-width: 2; }
-
-  .nav-brand {
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    letter-spacing: -0.3px;
-  }
-
+  .nav-brand { font-size: 16px; font-weight: 600; color: white; letter-spacing: -0.3px; }
   .nav-brand span { color: #5b9cf6; }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: rgba(255,255,255,0.65);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 400;
-    transition: color 0.2s;
-  }
-
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
   .nav-links a:hover { color: white; }
-
-  .nav-cta {
-    background: var(--cobalt);
-    color: white !important;
-    padding: 8px 18px;
-    border-radius: var(--radius);
-    font-weight: 500 !important;
-    transition: background 0.2s !important;
-  }
-
+  .nav-cta { background: var(--cobalt) !important; color: white !important; padding: 8px 18px; border-radius: var(--radius); font-weight: 500 !important; transition: background 0.2s !important; }
   .nav-cta:hover { background: var(--cobalt-hover) !important; }
-
-  /* Hamburger mobile */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 2px;
-    transition: all 0.25s;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding: 100px 40px 60px;
-  }
-
-  .hero-bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-  }
-
-  .hero-bg-glow {
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(13,110,253,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-bg-glow2 {
-    position: absolute;
-    bottom: -150px; left: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(91,156,246,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-content {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(13,110,253,0.15);
-    border: 1px solid rgba(13,110,253,0.3);
-    border-radius: 100px;
-    padding: 5px 14px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #5b9cf6;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .hero-badge-dot {
-    width: 6px; height: 6px;
-    background: #5b9cf6;
-    border-radius: 50%;
-    animation: pulse-dot 2s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .hero-title {
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 700;
-    color: white;
-    line-height: 1.15;
-    letter-spacing: -1.5px;
-    margin-bottom: 20px;
-  }
-
-  .hero-title em {
-    font-style: normal;
-    color: #5b9cf6;
-  }
-
-  .hero-subtitle {
-    font-size: 17px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.75;
-    margin-bottom: 40px;
-    font-weight: 300;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--cobalt);
-    color: white;
-    padding: 13px 26px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    font-family: inherit;
-  }
-
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: all 0.25s; }
+  .hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; position: relative; overflow: hidden; padding: 100px 40px 60px; }
+  .hero-bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  .hero-bg-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(13,110,253,0.15) 0%, transparent 70%); pointer-events: none; }
+  .hero-bg-glow2 { position: absolute; bottom: -150px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(91,156,246,0.08) 0%, transparent 70%); pointer-events: none; }
+  .hero-content { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; width: 100%; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(13,110,253,0.15); border: 1px solid rgba(13,110,253,0.3); border-radius: 100px; padding: 5px 14px; font-size: 12px; font-weight: 500; color: #5b9cf6; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 24px; }
+  .hero-badge-dot { width: 6px; height: 6px; background: #5b9cf6; border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .hero-title { font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: white; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
+  .hero-title em { font-style: normal; color: #5b9cf6; }
+  .hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 40px; font-weight: 300; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--cobalt); color: white; padding: 13px 26px; border-radius: var(--radius); font-size: 15px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; font-family: inherit; }
   .btn-primary:hover { background: var(--cobalt-hover); transform: translateY(-1px); }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    color: rgba(255,255,255,0.8);
-    padding: 13px 26px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.18);
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    font-family: inherit;
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 48px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .hero-stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: white;
-    letter-spacing: -1px;
-  }
-
-  .hero-stat-label {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2px;
-  }
-
-  /* HERO RIGHT - mini dashboard */
-  .hero-dashboard {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius-xl);
-    padding: 24px;
-  }
-
-  .dash-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-  }
-
-  .dash-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.7);
-  }
-
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,0.8); padding: 13px 26px; border-radius: var(--radius); font-size: 15px; font-weight: 500; text-decoration: none; border: 1px solid rgba(255,255,255,0.18); cursor: pointer; transition: background 0.2s, border-color 0.2s; font-family: inherit; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.3); }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .hero-stat-value { font-size: 28px; font-weight: 700; color: white; letter-spacing: -1px; }
+  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .hero-dashboard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); padding: 24px; }
+  .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .dash-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); }
   .dash-dots { display: flex; gap: 5px; }
-
-  .dash-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-  }
-
-  .dash-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .dash-metric {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 14px;
-  }
-
-  .dash-metric-val {
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-    font-family: 'DM Mono', monospace;
-  }
-
-  .dash-metric-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2px;
-  }
-
-  .dash-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 9px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-
+  .dash-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dash-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+  .dash-metric { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; }
+  .dash-metric-val { font-size: 22px; font-weight: 700; color: white; font-family: 'DM Mono', monospace; }
+  .dash-metric-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .dash-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .dash-row:last-child { border-bottom: none; }
   .dash-row-label { font-size: 12px; color: rgba(255,255,255,0.5); }
   .dash-row-val { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8); font-family: 'DM Mono', monospace; }
-
   .badge { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; }
   .badge-green { background: rgba(16,185,129,0.15); color: #34d399; }
   .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
-  .badge-red   { background: rgba(239,68,68,0.15);  color: #f87171; }
-  .badge-blue  { background: rgba(13,110,253,0.15);  color: #60a5fa; }
-
-  /* SECTIONS */
   section { padding: 96px 40px; }
   .section-inner { max-width: 1100px; margin: 0 auto; }
-
-  .section-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--cobalt);
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-size: clamp(28px, 3.5vw, 42px);
-    font-weight: 700;
-    color: var(--navy);
-    letter-spacing: -1px;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-
-  .section-sub {
-    font-size: 17px;
-    color: var(--carbon);
-    line-height: 1.7;
-    max-width: 600px;
-  }
-
-  /* PROGRESS BAR */
-  .progress-section {
-    background: var(--off-white);
-    border-bottom: 1px solid var(--border-light);
-    padding: 32px 40px;
-  }
-
-  .progress-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
+  .section-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cobalt); margin-bottom: 12px; }
+  .section-title { font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; color: var(--navy); letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px; }
+  .section-sub { font-size: 17px; color: var(--carbon); line-height: 1.7; max-width: 600px; }
+  /* ABOUT */
+  .about-section { background: var(--white); border-bottom: 1px solid var(--border-light); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 56px; }
+  .about-text p { font-size: 16px; color: var(--carbon); line-height: 1.8; margin-bottom: 20px; }
+  .about-text p strong { color: var(--navy); font-weight: 600; }
+  .about-pillars { display: flex; flex-direction: column; gap: 20px; }
+  .about-pillar { display: flex; align-items: flex-start; gap: 16px; padding: 20px 22px; background: var(--off-white); border-radius: var(--radius-lg); border: 1px solid var(--border-light); transition: box-shadow 0.2s, transform 0.2s; }
+  .about-pillar:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+  .about-pillar-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .about-pillar-icon svg { width: 20px; height: 20px; fill: none; stroke-width: 2; }
+  .about-pillar-icon.blue { background: rgba(13,110,253,0.10); } .about-pillar-icon.blue svg { stroke: var(--cobalt); }
+  .about-pillar-icon.green { background: rgba(16,185,129,0.10); } .about-pillar-icon.green svg { stroke: #059669; }
+  .about-pillar-icon.amber { background: rgba(245,158,11,0.10); } .about-pillar-icon.amber svg { stroke: #d97706; }
+  .about-pillar-icon.purple { background: rgba(124,58,237,0.10); } .about-pillar-icon.purple svg { stroke: #7c3aed; }
+  .about-pillar-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .about-pillar-desc { font-size: 13px; color: var(--carbon); line-height: 1.6; }
+  .about-highlight-box { margin-top: 28px; padding: 22px 24px; background: linear-gradient(135deg, rgba(13,110,253,0.06) 0%, rgba(91,156,246,0.04) 100%); border: 1px solid rgba(13,110,253,0.18); border-radius: var(--radius-lg); display: flex; align-items: flex-start; gap: 14px; }
+  .about-highlight-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .about-highlight-text { font-size: 14px; color: var(--navy); line-height: 1.7; }
+  .about-highlight-text strong { color: var(--cobalt); font-weight: 600; }
+  /* PROGRESS */
+  .progress-section { background: var(--off-white); border-bottom: 1px solid var(--border-light); padding: 32px 40px; }
+  .progress-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
   .progress-label { font-size: 14px; font-weight: 600; color: var(--navy); white-space: nowrap; }
-
-  .progress-track {
-    flex: 1;
-    min-width: 200px;
-    height: 8px;
-    background: var(--border);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--cobalt), #5b9cf6);
-    border-radius: 100px;
-    width: 0;
-    transition: width 1.5s ease-out;
-  }
-
+  .progress-track { flex: 1; min-width: 200px; height: 8px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--cobalt), #5b9cf6); border-radius: 100px; width: 0; transition: width 1.5s ease-out; }
   .progress-count { font-size: 14px; font-weight: 600; color: var(--cobalt); white-space: nowrap; }
-
-  /* DASHBOARD SECTION */
+  /* DASHBOARD */
   .dashboard-section { background: var(--off-white); }
-
   .filter-bar { display: flex; gap: 10px; margin: 36px 0 20px; flex-wrap: wrap; }
-
-  .filter-btn {
-    padding: 8px 18px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: white;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--carbon);
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.15s;
-  }
-
-  .filter-btn:hover, .filter-btn.active {
-    background: var(--navy);
-    color: white;
-    border-color: var(--navy);
-  }
-
-  .table-wrap {
-    background: white;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    overflow-x: auto; /* FIX: scroll horizontal en mobile */
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-    min-width: 700px; /* FIX: evita que la tabla se aplaste */
-  }
-
+  .filter-btn { padding: 8px 18px; border-radius: var(--radius); border: 1px solid var(--border); background: white; font-size: 13px; font-weight: 500; color: var(--carbon); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .table-wrap { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 700px; }
   thead tr { background: #f4f6fa; border-bottom: 1px solid var(--border); }
-
-  th {
-    padding: 13px 16px;
-    text-align: left;
-    font-size: 11.5px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--carbon-light);
-    white-space: nowrap;
-  }
-
+  th { padding: 13px 16px; text-align: left; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--carbon-light); white-space: nowrap; }
   tbody tr { border-bottom: 1px solid var(--border-light); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: #f8f9fd; }
-
-  td {
-    padding: 14px 16px;
-    color: var(--navy);
-    vertical-align: middle;
-  }
-
+  td { padding: 14px 16px; color: var(--navy); vertical-align: middle; }
   .td-muted { color: var(--carbon); font-size: 13px; }
-
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .status-badge::before {
-    content: '';
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .status-aprobado { background: #e9faf4; color: #0d7c56; }
-  .status-aprobado::before { background: #0d7c56; }
-  .status-pendiente { background: #fff8e6; color: #b45309; }
-  .status-pendiente::before { background: #b45309; }
-  .status-revisar { background: #fef2f2; color: #b91c1c; }
-  .status-revisar::before { background: #b91c1c; }
-
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px; height: 30px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: white;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-    text-decoration: none;
-    color: var(--carbon);
-  }
-
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 100px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .status-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .status-aprobado { background: #e9faf4; color: #0d7c56; } .status-aprobado::before { background: #0d7c56; }
+  .status-pendiente { background: #fff8e6; color: #b45309; } .status-pendiente::before { background: #b45309; }
+  .status-revisar { background: #fef2f2; color: #b91c1c; } .status-revisar::before { background: #b91c1c; }
+  .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border); background: white; cursor: pointer; transition: background 0.15s, border-color 0.15s; text-decoration: none; color: var(--carbon); }
   .icon-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
-  .icon-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; } /* FIX: los iconos PDF usan stroke */
-
+  .icon-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
   .alert-icon { color: #f59e0b; display: inline-flex; align-items: center; justify-content: center; }
   .alert-icon svg { width: 16px; height: 16px; fill: currentColor; }
-
   .amount { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px; }
-
+  .cat-gastos { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+  .cat-insumos { background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+  .cat-servicios { background: #f3e8ff; color: #6b21a8; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
   /* EXPORT */
   .export-section { background: var(--white); }
-
-  .export-card {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-    border-radius: var(--radius-xl);
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 40px;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .export-card::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(13,110,253,0.2) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
+  .export-card { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: var(--radius-xl); padding: 60px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; position: relative; overflow: hidden; }
+  .export-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(13,110,253,0.2) 0%, transparent 70%); pointer-events: none; }
   .export-title { font-size: 32px; font-weight: 700; color: white; letter-spacing: -0.8px; margin-bottom: 12px; }
   .export-sub { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 480px; }
-
-  .btn-export {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: white;
-    color: var(--navy);
-    padding: 14px 28px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    font-family: inherit;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-
+  .btn-export { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--navy); padding: 14px 28px; border-radius: var(--radius); font-size: 15px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; white-space: nowrap; font-family: inherit; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
   .btn-export:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
   .btn-export svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-
-  /* TEAM */
+  /* TEAM — 4 cols */
   .team-section { background: var(--off-white); }
-
-  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-
-  .team-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    padding: 32px 24px;
-    text-align: center;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .team-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 32px 24px; text-align: center; transition: box-shadow 0.2s, transform 0.2s; }
   .team-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-
-  .team-avatar {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-    margin: 0 auto 16px;
-    letter-spacing: -1px;
-  }
-
-  .team-name { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: white; margin: 0 auto 16px; letter-spacing: -1px; }
+  .team-name { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
   .team-role { font-size: 13px; color: var(--carbon-light); }
-
   /* CONTACT */
   .contact-section { background: white; }
-
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 48px; }
-
   .contact-form { display: flex; flex-direction: column; gap: 16px; }
-
   .form-group { display: flex; flex-direction: column; gap: 6px; }
-
-  /* FIX: scope de estilos de input/textarea al formulario de contacto únicamente */
   .contact-form label { font-size: 13px; font-weight: 500; color: var(--navy); }
-
-  .contact-form input,
-  .contact-form textarea {
-    padding: 11px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--navy);
-    background: white;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    resize: vertical;
-    width: 100%;
-  }
-
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    border-color: var(--cobalt);
-    box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
-  }
-
+  .contact-form input, .contact-form textarea { padding: 11px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 14px; color: var(--navy); background: white; transition: border-color 0.2s, box-shadow 0.2s; outline: none; resize: vertical; width: 100%; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--cobalt); box-shadow: 0 0 0 3px rgba(13,110,253,0.1); }
   .contact-form textarea { min-height: 120px; }
-
-  .btn-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--navy);
-    color: white;
-    padding: 13px 26px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.2s;
-    align-self: flex-start;
-  }
-
+  .btn-submit { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: white; padding: 13px 26px; border-radius: var(--radius); font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: background 0.2s; align-self: flex-start; }
   .btn-submit:hover { background: var(--navy-dark); }
-
   .contact-info { padding-top: 8px; }
   .contact-info-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.5px; }
   .contact-info-sub { font-size: 15px; color: var(--carbon); line-height: 1.7; margin-bottom: 32px; }
-
   .contact-feature { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
-
-  .contact-feature-icon {
-    width: 38px; height: 38px;
-    background: rgba(13,110,253,0.08);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
+  .contact-feature-icon { width: 38px; height: 38px; background: rgba(13,110,253,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .contact-feature-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--cobalt); stroke-width: 2; }
   .contact-feature-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
   .contact-feature-desc { font-size: 13px; color: var(--carbon); }
-
-  /* FOOTER */
-  footer {
-    background: var(--navy-dark);
-    padding: 32px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
+  footer { background: var(--navy-dark); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 16px; }
   .footer-brand { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.5); }
   .footer-brand span { color: #5b9cf6; }
   .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
-
-  /* CHAT FLOAT */
-  .chat-float {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-  }
-
-  .chat-bubble {
-    background: var(--navy);
-    color: rgba(255,255,255,0.85);
-    padding: 10px 16px;
-    border-radius: 12px 12px 0 12px;
-    font-size: 13px;
-    font-weight: 500;
-    max-width: 220px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255,255,255,0.08);
-    line-height: 1.4;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-
+  .chat-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .chat-bubble { background: var(--navy); color: rgba(255,255,255,0.85); padding: 10px 16px; border-radius: 12px 12px 0 12px; font-size: 13px; font-weight: 500; max-width: 220px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.08); line-height: 1.4; cursor: pointer; transition: transform 0.2s; }
   .chat-bubble:hover { transform: translateY(-2px); }
-
-  .chat-btn {
-    width: 54px; height: 54px;
-    border-radius: 50%;
-    background: var(--cobalt);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(13,110,253,0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
+  .chat-btn { width: 54px; height: 54px; border-radius: 50%; background: var(--cobalt); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(13,110,253,0.4); transition: transform 0.2s, box-shadow 0.2s; }
   .chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(13,110,253,0.5); }
   .chat-btn svg { width: 22px; height: 22px; fill: white; }
-
-  /* CATEGORY CHIPS */
-  .cat-gastos   { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
-  .cat-insumos  { background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
-  .cat-servicios{ background: #f3e8ff; color: #6b21a8; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; white-space: nowrap; }
-
-  /* AUTH OVERLAY */
-  .auth-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 500;
-    background: rgba(17, 27, 42, 0.72);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
-
+  /* AUTH */
+  .auth-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(17,27,42,0.72); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
   .auth-overlay.active { opacity: 1; pointer-events: all; }
-
-  .auth-modal {
-    background: var(--white);
-    border-radius: var(--radius-xl);
-    width: 100%;
-    max-width: 440px;
-    box-shadow: 0 24px 80px rgba(17,27,42,0.3);
-    overflow: hidden;
-    transform: translateY(16px) scale(0.98);
-    transition: transform 0.25s ease;
-    position: relative;
-  }
-
+  .auth-modal { background: var(--white); border-radius: var(--radius-xl); width: 100%; max-width: 440px; box-shadow: 0 24px 80px rgba(17,27,42,0.3); overflow: hidden; transform: translateY(16px) scale(0.98); transition: transform 0.25s ease; position: relative; }
   .auth-overlay.active .auth-modal { transform: translateY(0) scale(1); }
-
-  .auth-modal-header {
-    background: var(--navy);
-    padding: 28px 32px 24px;
-    position: relative;
-  }
-
+  .auth-modal-header { background: var(--navy); padding: 28px 32px 24px; position: relative; }
   .auth-modal-logo { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
-
-  .auth-modal-logo-icon {
-    width: 30px; height: 30px;
-    background: var(--cobalt);
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
+  .auth-modal-logo-icon { width: 30px; height: 30px; background: var(--cobalt); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .auth-modal-logo-icon svg { width: 15px; height: 15px; fill: none; stroke: white; stroke-width: 2; }
-
   .auth-modal-logo-text { font-size: 14px; font-weight: 600; color: white; letter-spacing: -0.2px; }
   .auth-modal-logo-text span { color: #5b9cf6; }
   .auth-modal-title { font-size: 22px; font-weight: 700; color: white; letter-spacing: -0.6px; margin-bottom: 4px; }
   .auth-modal-subtitle { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 300; }
-
-  .auth-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 30px; height: 30px;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: transparent;
-    color: rgba(255,255,255,0.5);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    line-height: 1;
-    transition: background 0.15s, color 0.15s;
-    font-family: inherit;
-  }
-
+  .auth-close { position: absolute; top: 16px; right: 16px; width: 30px; height: 30px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1; transition: background 0.15s, color 0.15s; font-family: inherit; }
   .auth-close:hover { background: rgba(255,255,255,0.1); color: white; }
-
   .auth-modal-body { padding: 28px 32px 32px; }
-
-  .btn-google {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 13px 20px;
-    border-radius: var(--radius);
-    border: 1.5px solid var(--border);
-    background: white;
-    color: var(--navy);
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
-    box-shadow: var(--shadow);
-  }
-
+  .gsi-btn-wrapper { width: 100%; display: flex; justify-content: center; margin-bottom: 4px; min-height: 44px; }
+  .btn-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 13px 20px; border-radius: var(--radius); border: 1.5px solid var(--border); background: white; color: var(--navy); font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; box-shadow: var(--shadow); }
   .btn-google:hover { background: #f8f9fc; border-color: rgba(27,38,59,0.22); box-shadow: var(--shadow-md); }
-  .btn-google:active { transform: scale(0.99); }
-
   .google-icon { width: 20px; height: 20px; flex-shrink: 0; }
-
   .auth-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
   .auth-divider-line { flex: 1; height: 1px; background: var(--border); }
   .auth-divider-text { font-size: 12px; color: var(--carbon-light); font-weight: 500; white-space: nowrap; }
-
-  .auth-note { font-size: 12px; color: var(--carbon-light); line-height: 1.6; text-align: center; margin-top: 20px; }
-  .auth-note a { color: var(--cobalt); text-decoration: none; font-weight: 500; }
-  .auth-note a:hover { text-decoration: underline; }
-
   .auth-switch { text-align: center; margin-top: 18px; font-size: 13.5px; color: var(--carbon); }
   .auth-switch a { color: var(--cobalt); font-weight: 600; text-decoration: none; cursor: pointer; }
   .auth-switch a:hover { text-decoration: underline; }
-
-  .auth-features {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--off-white);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border-light);
-  }
-
+  .auth-features { display: flex; flex-direction: column; gap: 10px; background: var(--off-white); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; border: 1px solid var(--border-light); }
   .auth-feature-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--navy); }
-
-  .auth-feature-check {
-    width: 18px; height: 18px;
-    background: rgba(13,110,253,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
+  .auth-feature-check { width: 18px; height: 18px; background: rgba(13,110,253,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .auth-feature-check svg { width: 10px; height: 10px; stroke: var(--cobalt); fill: none; stroke-width: 2; }
-
-  /* FIX: scope del checkbox de términos para no interferir con otros inputs */
   .auth-terms-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
-
-  .auth-terms-row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    margin-top: 2px;
-    accent-color: var(--cobalt);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .auth-terms-row label {
-    font-size: 12px;
-    color: var(--carbon);
-    line-height: 1.5;
-    font-weight: 400;
-    cursor: pointer;
-  }
-
+  .auth-terms-row input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; margin-top: 2px; accent-color: var(--cobalt); cursor: pointer; flex-shrink: 0; }
+  .auth-terms-row label { font-size: 12px; color: var(--carbon); line-height: 1.5; font-weight: 400; cursor: pointer; }
   .auth-terms-row label a { color: var(--cobalt); text-decoration: none; font-weight: 500; }
-  .auth-terms-row label a:hover { text-decoration: underline; }
-
   .auth-security { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 16px; font-size: 11.5px; color: var(--carbon-light); }
   .auth-security svg { width: 13px; height: 13px; fill: none; stroke: var(--carbon-light); stroke-width: 2; flex-shrink: 0; }
-
-  /* NAV SESSION PILL */
-  .nav-user-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 100px;
-    padding: 5px 14px 5px 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
+  .auth-dev-note { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: var(--radius); padding: 10px 14px; font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 14px; }
+  .auth-dev-note strong { font-weight: 600; display: block; margin-bottom: 2px; }
+  /* NAV PILL */
+  .nav-user-pill { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 5px 14px 5px 6px; cursor: pointer; transition: background 0.2s; }
   .nav-user-pill:hover { background: rgba(255,255,255,0.12); }
-
-  .nav-user-avatar {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--cobalt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-  }
-
-  .nav-user-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.85);
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
+  .nav-user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--cobalt); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; overflow: hidden; }
+  .nav-user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .nav-user-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .nav-user-caret { width: 14px; height: 14px; fill: rgba(255,255,255,0.4); flex-shrink: 0; }
-
   .nav-user-wrap { position: relative; }
-
-  .nav-user-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background: white;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    min-width: 220px;
-    overflow: hidden;
-    display: none;
-    z-index: 300;
-  }
-
+  .nav-user-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-lg); min-width: 220px; overflow: hidden; display: none; z-index: 300; }
   .nav-user-dropdown.open { display: block; }
-
-  .nav-user-dropdown-header {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border-light);
-    background: var(--off-white);
-  }
-
+  .nav-user-dropdown-header { padding: 14px 16px; border-bottom: 1px solid var(--border-light); background: var(--off-white); }
   .nav-user-dropdown-email { font-size: 12px; color: var(--carbon-light); margin-top: 2px; }
   .nav-user-dropdown-name { font-size: 14px; font-weight: 600; color: var(--navy); }
-
-  .nav-dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 11px 16px;
-    font-size: 13.5px;
-    color: var(--navy);
-    cursor: pointer;
-    transition: background 0.12s;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    font-family: inherit;
-  }
-
+  .nav-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 11px 16px; font-size: 13.5px; color: var(--navy); cursor: pointer; transition: background 0.12s; border: none; background: none; width: 100%; text-align: left; font-family: inherit; }
   .nav-dropdown-item:hover { background: var(--off-white); }
   .nav-dropdown-item svg { width: 15px; height: 15px; fill: none; stroke: var(--carbon-light); stroke-width: 2; flex-shrink: 0; }
-  .nav-dropdown-item.danger { color: #b91c1c; }
-  .nav-dropdown-item.danger svg { stroke: #b91c1c; }
+  .nav-dropdown-item.danger { color: #b91c1c; } .nav-dropdown-item.danger svg { stroke: #b91c1c; }
   .nav-dropdown-divider { height: 1px; background: var(--border-light); margin: 4px 0; }
-
   /* HISTORIAL */
-  .history-section {
-    background: var(--white);
-    border-top: 1px solid var(--border-light);
-    padding: 80px 40px;
-    display: none;
-  }
-
+  .history-section { background: var(--white); border-top: 1px solid var(--border-light); padding: 80px 40px; display: none; }
   .history-section.visible { display: block; }
-
-  .history-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
-
+  .history-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
   .history-search-wrap { position: relative; flex: 1; max-width: 480px; }
-
-  .history-search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px; height: 16px;
-    stroke: var(--carbon-light);
-    fill: none;
-    stroke-width: 2;
-    pointer-events: none;
-  }
-
-  .history-search {
-    width: 100%;
-    padding: 11px 14px 11px 40px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--navy);
-    background: white;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
+  .history-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--carbon-light); fill: none; stroke-width: 2; pointer-events: none; }
+  .history-search { width: 100%; padding: 11px 14px 11px 40px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 14px; color: var(--navy); background: white; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
   .history-search:focus { border-color: var(--cobalt); box-shadow: 0 0 0 3px rgba(13,110,253,0.1); }
-
   .history-chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-
-  .history-chip {
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1.5px solid var(--border);
-    background: white;
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--carbon);
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
+  .history-chip { padding: 6px 14px; border-radius: 100px; border: 1.5px solid var(--border); background: white; font-size: 12.5px; font-weight: 500; color: var(--carbon); cursor: pointer; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
   .history-chip:hover, .history-chip.active { background: var(--navy); color: white; border-color: var(--navy); }
-
-  .history-chip-count {
-    display: inline-block;
-    background: rgba(13,110,253,0.12);
-    color: var(--cobalt);
-    border-radius: 100px;
-    padding: 0 6px;
-    font-size: 11px;
-    font-weight: 600;
-    margin-left: 4px;
-  }
-
+  .history-chip-count { display: inline-block; background: rgba(13,110,253,0.12); color: var(--cobalt); border-radius: 100px; padding: 0 6px; font-size: 11px; font-weight: 600; margin-left: 4px; }
   .history-chip.active .history-chip-count { background: rgba(255,255,255,0.2); color: white; }
-
-  .history-stats-bar {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-    padding: 16px 20px;
-    background: var(--off-white);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-light);
-  }
-
+  .history-stats-bar { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px 20px; background: var(--off-white); border-radius: var(--radius-lg); border: 1px solid var(--border-light); }
   .hstat { display: flex; flex-direction: column; gap: 2px; }
   .hstat-val { font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; font-family: 'DM Mono', monospace; }
   .hstat-label { font-size: 11px; color: var(--carbon-light); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
   .hstat-divider { width: 1px; background: var(--border); align-self: stretch; }
-
   .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 4px; }
-
-  .history-card {
-    background: white;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 18px 20px;
-    cursor: pointer;
-    transition: box-shadow 0.18s, border-color 0.18s, transform 0.15s;
-    position: relative;
-  }
-
+  .history-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; cursor: pointer; transition: box-shadow 0.18s, border-color 0.18s, transform 0.15s; position: relative; }
   .history-card:hover { box-shadow: var(--shadow-md); border-color: rgba(13,110,253,0.25); transform: translateY(-2px); }
-
   .history-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
   .history-card-provider { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.3; }
   .history-card-date { font-size: 11.5px; color: var(--carbon-light); margin-top: 2px; }
   .history-card-amount { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
   .history-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-  .history-card-viewed {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    color: var(--carbon-light);
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border-light);
-  }
-
+  .history-card-viewed { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--carbon-light); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-light); }
   .history-card-viewed svg { width: 11px; height: 11px; fill: none; stroke: var(--carbon-light); stroke-width: 2; }
-
-  .history-card-pin {
-    position: absolute;
-    top: 14px; right: 14px;
-    width: 24px; height: 24px;
-    border-radius: 5px;
-    border: 1px solid var(--border);
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-    flex-shrink: 0;
-  }
-
-  .history-card-pin:hover { background: #fef3c7; border-color: #f59e0b; }
-  .history-card-pin.pinned { background: #fef3c7; border-color: #f59e0b; }
+  .history-card-pin { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 5px; border: 1px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s, border-color 0.15s; flex-shrink: 0; }
+  .history-card-pin:hover, .history-card-pin.pinned { background: #fef3c7; border-color: #f59e0b; }
   .history-card-pin svg { width: 12px; height: 12px; fill: var(--carbon-light); }
   .history-card-pin.pinned svg { fill: #f59e0b; }
-
   .history-empty { text-align: center; padding: 60px 20px; color: var(--carbon-light); display: none; }
   .history-empty.visible { display: block; }
-
-  .history-empty-icon {
-    width: 48px; height: 48px;
-    margin: 0 auto 16px;
-    background: var(--off-white);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
+  .history-empty-icon { width: 48px; height: 48px; margin: 0 auto 16px; background: var(--off-white); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
   .history-empty-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--carbon-light); stroke-width: 2; }
   .history-empty-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
   .history-empty-sub { font-size: 13px; line-height: 1.6; }
-
-  /* SESSION TOAST */
-  .session-toast {
-    position: fixed;
-    bottom: 96px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--navy);
-    color: white;
-    padding: 12px 22px;
-    border-radius: 100px;
-    font-size: 13.5px;
-    font-weight: 500;
-    box-shadow: var(--shadow-lg);
-    z-index: 600;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  .session-toast { position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy); color: white; padding: 12px 22px; border-radius: 100px; font-size: 13.5px; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
   .session-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .session-toast-dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; flex-shrink: 0; }
-
-  /* RESPONSIVE */
+  @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } .about-grid { grid-template-columns: 1fr; gap: 40px; } }
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
-
     .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(27,38,59,0.98); flex-direction: column; gap: 0; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .nav-links.open { display: flex; }
     .nav-links li a { display: block; padding: 12px 24px; }
     .nav-hamburger { display: flex; }
-
     section { padding: 60px 20px; }
     .hero { padding: 80px 20px 50px; }
     .hero-content { grid-template-columns: 1fr; gap: 40px; }
     .hero-dashboard { display: none; }
     .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .hero-stat-value { font-size: 22px; }
-
-    .team-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; }
     .export-card { grid-template-columns: 1fr; padding: 36px; }
     footer { flex-direction: column; align-items: center; text-align: center; }
-
     .history-section { padding: 60px 20px; }
     .history-grid { grid-template-columns: 1fr; }
     .history-top { flex-direction: column; }
     .history-search-wrap { max-width: 100%; }
     .history-stats-bar { gap: 16px; }
     .hstat-divider { display: none; }
-    .nav-user-dropdown { right: -10px; }
-
     .auth-modal-header { padding: 22px 20px 18px; }
     .auth-modal-body { padding: 20px 20px 24px; }
   }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#inicio" class="nav-logo">
-    <div class="nav-logo-icon">
-      <!-- FIX: ícono de tabla correcto con stroke en lugar de fill -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-        <line x1="3" y1="9" x2="21" y2="9"/>
-        <line x1="3" y1="15" x2="21" y2="15"/>
-        <line x1="9" y1="9" x2="9" y2="21"/>
-      </svg>
-    </div>
-    <span class="nav-brand">Smart<span>Audit</span> IA</span>
-  </a>
-
-  <!-- FIX: menú mobile hamburger -->
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú" aria-expanded="false" onclick="toggleNavMenu()">
-    <span></span><span></span><span></span>
-  </button>
-
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#dashboard">Dashboard</a></li>
-    <li><a href="#integracion">Integración</a></li>
-    <li><a href="#equipo">Equipo</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="#" class="nav-cta" id="nav-acceder-btn" onclick="openModal('login'); return false;">Acceder</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="inicio">
-  <div class="hero-bg-grid" aria-hidden="true"></div>
-  <div class="hero-bg-glow" aria-hidden="true"></div>
-  <div class="hero-bg-glow2" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div>
-      <div class="hero-badge">
-        <div class="hero-badge-dot" aria-hidden="true"></div>
-        Powered by GPT-4o
-      </div>
-      <h1 class="hero-title">SmartAudit IA: Tu Auditoría Financiera en <em>Piloto Automático.</em></h1>
-      <p class="hero-subtitle">Transformamos tus facturas y documentos PDF en datos accionables al instante. Centraliza, audita y decide mejor con el poder de la Inteligencia Artificial.</p>
-      <div class="hero-actions">
-        <a href="#dashboard" class="btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          Acceder a mi Dashboard
-        </a>
-        <button class="btn-secondary" onclick="openModal('login')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
-          Ver Demo en Vivo
-        </button>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-value">3.2k+</div>
-          <div class="hero-stat-label">Facturas procesadas</div>
-        </div>
-        <div>
-          <div class="hero-stat-value">99.1%</div>
-          <div class="hero-stat-label">Precisión IA</div>
-        </div>
-        <div>
-          <div class="hero-stat-value">&lt; 5s</div>
-          <div class="hero-stat-label">Tiempo de extracción</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mini Dashboard Preview -->
-    <div class="hero-dashboard" aria-hidden="true">
-      <div class="dash-header">
-        <span class="dash-title">Panel de Control — Mayo 2025</span>
-        <div class="dash-dots">
-          <div class="dash-dot" style="background:#ef4444"></div>
-          <div class="dash-dot" style="background:#f59e0b"></div>
-          <div class="dash-dot" style="background:#10b981"></div>
-        </div>
-      </div>
-      <div class="dash-metrics">
-        <div class="dash-metric">
-          <div class="dash-metric-val">$48.6M</div>
-          <div class="dash-metric-label">Monto total procesado</div>
-        </div>
-        <div class="dash-metric">
-          <div class="dash-metric-val">247</div>
-          <div class="dash-metric-label">Facturas este mes</div>
-        </div>
-        <div class="dash-metric">
-          <div class="dash-metric-val">12</div>
-          <div class="dash-metric-label">Alertas IA activas</div>
-        </div>
-        <div class="dash-metric">
-          <div class="dash-metric-val">94%</div>
-          <div class="dash-metric-label">Aprobadas automát.</div>
-        </div>
-      </div>
-      <div>
-        <div class="dash-row">
-          <span class="dash-row-label">Tecnología S.A.</span>
-          <span class="dash-row-val" style="color:#10b981;">$2.340.000</span>
-        </div>
-        <div class="dash-row">
-          <span class="dash-row-label">Insumos Ltda.</span>
-          <span class="dash-row-val">$890.500</span>
-        </div>
-        <div class="dash-row">
-          <span class="dash-row-label">Servicios Pro</span>
-          <div><span class="badge badge-amber">Revisar</span></div>
-        </div>
-        <div class="dash-row">
-          <span class="dash-row-label">Comercial Norte</span>
-          <div><span class="badge badge-green">Aprobado</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRESS BAR -->
-<div class="progress-section">
-  <div class="progress-inner">
-    <span class="progress-label">📊 Facturas procesadas en mayo 2025</span>
-    <div class="progress-track" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de facturas">
-      <div class="progress-fill" id="progress-fill"></div>
-    </div>
-    <span class="progress-count">247 / 340 documentos — 73%</span>
-  </div>
-</div>
-
-<!-- DASHBOARD SECTION -->
-<section class="dashboard-section" id="dashboard">
-  <div class="section-inner">
-    <div class="section-label">Centro de Control</div>
-    <h2 class="section-title">Tu panel inteligente sincronizado con Google Sheets</h2>
-    <p class="section-sub">Visualiza, filtra y gestiona todas tus facturas extraídas por IA en tiempo real. Sin planillas manuales.</p>
-
-    <div class="filter-bar" role="group" aria-label="Filtros de facturas">
-      <button class="filter-btn active" onclick="filterTable('all', this)">Todos</button>
-      <button class="filter-btn" onclick="filterTable('mes', this)">Mes Actual</button>
-      <button class="filter-btn" onclick="filterTable('pendiente', this)">Gastos por Aprobar</button>
-      <button class="filter-btn" onclick="filterTable('top', this)">Top Proveedores</button>
-    </div>
-
-    <div class="table-wrap">
-      <table id="facturas-table">
-        <thead>
-          <tr>
-            <th scope="col">Fecha</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">RUT Emisor</th>
-            <th scope="col">Monto Total</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Estado</th>
-            <th scope="col">PDF</th>
-            <th scope="col">Alerta IA</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-cat="top">
-            <td class="td-muted">02/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">Tecnología Sur S.A.</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">76.543.210-9</span></td>
-            <td class="amount">$2.340.000</td>
-            <td><span class="cat-servicios">Servicios</span></td>
-            <td><span class="status-badge status-aprobado">Aprobado</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de Tecnología Sur S.A." onclick="handlePdfClick(event, 0)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center" aria-label="Sin alerta">—</td>
-          </tr>
-          <tr data-cat="pendiente">
-            <td class="td-muted">04/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">Insumos Norte Ltda.</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">88.123.456-7</span></td>
-            <td class="amount">$890.500</td>
-            <td><span class="cat-insumos">Insumos</span></td>
-            <td><span class="status-badge status-pendiente">Pendiente</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de Insumos Norte Ltda." onclick="handlePdfClick(event, 1)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center" aria-label="Sin alerta">—</td>
-          </tr>
-          <tr data-cat="mes top">
-            <td class="td-muted">07/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">Comercial Andina SpA</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">79.876.543-2</span></td>
-            <td class="amount" style="color:#b91c1c">$8.750.000</td>
-            <td><span class="cat-gastos">Gastos</span></td>
-            <td><span class="status-badge status-revisar">Revisar</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de Comercial Andina SpA" onclick="handlePdfClick(event, 2)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center">
-              <span class="alert-icon" title="Monto inusual detectado por IA" role="img" aria-label="Alerta: monto inusual">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke="white" stroke-width="2"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="white" stroke-width="2"/></svg>
-              </span>
-            </td>
-          </tr>
-          <tr data-cat="mes">
-            <td class="td-muted">10/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">Servicios Pro Chile</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">82.345.678-K</span></td>
-            <td class="amount">$420.000</td>
-            <td><span class="cat-servicios">Servicios</span></td>
-            <td><span class="status-badge status-aprobado">Aprobado</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de Servicios Pro Chile" onclick="handlePdfClick(event, 3)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center" aria-label="Sin alerta">—</td>
-          </tr>
-          <tr data-cat="pendiente">
-            <td class="td-muted">12/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">Distribuidora Central</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">91.234.567-3</span></td>
-            <td class="amount">$1.150.000</td>
-            <td><span class="cat-insumos">Insumos</span></td>
-            <td><span class="status-badge status-pendiente">Pendiente</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de Distribuidora Central" onclick="handlePdfClick(event, 4)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center">
-              <span class="alert-icon" title="Posible duplicado detectado" role="img" aria-label="Alerta: posible duplicado">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke="white" stroke-width="2"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="white" stroke-width="2"/></svg>
-              </span>
-            </td>
-          </tr>
-          <tr data-cat="mes top">
-            <td class="td-muted">13/05/2025</td>
-            <td style="font-weight:600;color:var(--navy)">TechPyme Solutions</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:13px;">77.654.321-8</span></td>
-            <td class="amount">$3.200.000</td>
-            <td><span class="cat-gastos">Gastos</span></td>
-            <td><span class="status-badge status-aprobado">Aprobado</span></td>
-            <td>
-              <a href="#" class="icon-btn" title="Ver PDF" aria-label="Ver PDF de TechPyme Solutions" onclick="handlePdfClick(event, 5)">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </a>
-            </td>
-            <td style="text-align:center" aria-label="Sin alerta">—</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- INTEGRATION / EXPORT -->
-<section class="export-section" id="integracion">
-  <div class="section-inner">
-    <div class="export-card">
-      <div>
-        <div class="section-label" style="color:#5b9cf6">Integración &amp; Exportación</div>
-        <h2 class="export-title">De PDF a Decisiones Reales.</h2>
-        <p class="export-sub">Toda tu información se procesa y se transforma automáticamente en un archivo de Excel / Google Sheets listo para contabilidad. Sin copiar, sin pegar, sin errores.</p>
-      </div>
-      <div>
-        <button class="btn-export" onclick="handleExport()">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Descargar Reporte Mensual (.xlsx)
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TEAM -->
-<section class="team-section" id="equipo">
-  <div class="section-inner">
-    <div class="section-label">Quiénes Somos</div>
-    <h2 class="section-title">Los Creadores</h2>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="team-avatar" aria-hidden="true">AM</div>
-        <div class="team-name">Ana Martínez</div>
-        <div class="team-role">CEO &amp; Fundadora</div>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" aria-hidden="true">CR</div>
-        <div class="team-name">Carlos Reyes</div>
-        <div class="team-role">CTO &amp; Co-fundador</div>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" aria-hidden="true">LV</div>
-        <div class="team-name">Laura Vásquez</div>
-        <div class="team-role">Head of Product</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section" id="contacto">
-  <div class="section-inner">
-    <div class="section-label">Contacto</div>
-    <h2 class="section-title">¿Listo para automatizar tu auditoría?</h2>
-    <div class="contact-grid">
-      <!-- FIX: form real con action vacío para evitar recarga; onsubmit interceptado -->
-      <form class="contact-form" onsubmit="handleContactSubmit(event)" novalidate>
-        <div class="form-group">
-          <label for="contact-name">Nombre completo</label>
-          <input type="text" id="contact-name" name="name" placeholder="Tu nombre" required autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label for="contact-email">Correo electrónico</label>
-          <input type="email" id="contact-email" name="email" placeholder="correo@empresa.cl" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="contact-msg">Mensaje</label>
-          <textarea id="contact-msg" name="message" placeholder="Cuéntanos sobre tu empresa..." required></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Enviar mensaje</button>
-      </form>
-      <div class="contact-info">
-        <div class="contact-info-title">Hablemos de tu proyecto</div>
-        <div class="contact-info-sub">Nuestro equipo responde en menos de 24 horas hábiles. También puedes acceder directamente con tu cuenta Google.</div>
-        <div class="contact-feature">
-          <div class="contact-feature-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <div class="contact-feature-title">Acceso seguro con Google</div>
-            <div class="contact-feature-desc">Sin contraseñas que recordar. Usa tu cuenta Google corporativa o personal.</div>
-          </div>
-        </div>
-        <div class="contact-feature">
-          <div class="contact-feature-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 010 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14h-.08z"/></svg>
-          </div>
-          <div>
-            <div class="contact-feature-title">Soporte directo</div>
-            <div class="contact-feature-desc">+56 9 1234 5678 — Lunes a Viernes, 9:00 a 18:00 hrs.</div>
-          </div>
-        </div>
-        <button type="button" class="btn-primary" style="margin-top:8px" onclick="openModal('register')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-          Crear cuenta gratis
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Smart<span>Audit</span> IA</div>
-  <div class="footer-copy">&copy; 2025 SmartAudit IA. Todos los derechos reservados.</div>
-</footer>
-
-<!-- CHAT FLOAT -->
-<div class="chat-float" id="chat-float">
-  <div class="chat-bubble" id="chat-bubble" onclick="toggleChat()">¿Tienes dudas sobre el plan? 💬</div>
-  <button class="chat-btn" onclick="toggleChat()" aria-label="Abrir chat de soporte">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-  </button>
-</div>
-
-<!-- MODAL LOGIN -->
-<div class="auth-overlay" id="modal-login" role="dialog" aria-modal="true" aria-labelledby="login-title">
-  <div class="auth-modal">
-    <div class="auth-modal-header">
-      <div class="auth-modal-logo">
-        <div class="auth-modal-logo-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
-        </div>
-        <span class="auth-modal-logo-text">Smart<span>Audit</span> IA</span>
-      </div>
-      <h2 class="auth-modal-title" id="login-title">Bienvenido de vuelta</h2>
-      <p class="auth-modal-subtitle">Accede a tu panel de auditoría financiera</p>
-      <button class="auth-close" onclick="closeModal('login')" aria-label="Cerrar modal">✕</button>
-    </div>
-    <div class="auth-modal-body">
-      <button class="btn-google" onclick="handleGoogleAuth('login')">
-        <svg class="google-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-        </svg>
-        Continuar con Google
-      </button>
-
-      <div class="auth-divider">
-        <div class="auth-divider-line"></div>
-        <span class="auth-divider-text">Acceso rápido y seguro</span>
-        <div class="auth-divider-line"></div>
-      </div>
-
-      <div class="auth-features">
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Tu dashboard sincronizado al instante
-        </div>
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Facturas e informes guardados en la nube
-        </div>
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Sin contraseñas — autenticación OAuth 2.0
-        </div>
-      </div>
-
-      <div class="auth-switch">
-        ¿No tienes cuenta aún? <a onclick="switchModal('login','register')">Crear cuenta gratis →</a>
-      </div>
-
-      <div class="auth-security">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Conexión protegida con cifrado SSL/TLS
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL REGISTER -->
-<div class="auth-overlay" id="modal-register" role="dialog" aria-modal="true" aria-labelledby="register-title">
-  <div class="auth-modal">
-    <div class="auth-modal-header">
-      <div class="auth-modal-logo">
-        <div class="auth-modal-logo-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
-        </div>
-        <span class="auth-modal-logo-text">Smart<span>Audit</span> IA</span>
-      </div>
-      <h2 class="auth-modal-title" id="register-title">Crea tu cuenta gratis</h2>
-      <p class="auth-modal-subtitle">Empieza a auditar tus facturas en menos de 2 minutos</p>
-      <button class="auth-close" onclick="closeModal('register')" aria-label="Cerrar modal">✕</button>
-    </div>
-    <div class="auth-modal-body">
-      <div class="auth-features">
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Procesa hasta 50 facturas gratis al mes
-        </div>
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Panel de control con alertas IA incluido
-        </div>
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Exportación a Excel y Google Sheets
-        </div>
-        <div class="auth-feature-item">
-          <div class="auth-feature-check" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
-          Sin tarjeta de crédito requerida
-        </div>
-      </div>
-
-      <div class="auth-terms-row">
-        <input type="checkbox" id="terms-check">
-        <label for="terms-check">
-          Al registrarme acepto los <a href="#">Términos de Servicio</a> y la <a href="#">Política de Privacidad</a> de SmartAudit IA.
-        </label>
-      </div>
-
-      <button class="btn-google" onclick="handleGoogleAuth('register')">
-        <svg class="google-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-        </svg>
-        Registrarme con Google
-      </button>
-
-      <div class="auth-switch">
-        ¿Ya tienes cuenta? <a onclick="switchModal('register','login')">Iniciar sesión →</a>
-      </div>
-
-      <div class="auth-security">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Conexión protegida con cifrado SSL/TLS
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- HISTORIAL -->
-<section class="history-section" id="historial">
-  <div class="section-inner">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
-      <div class="section-label" style="margin-bottom:0">Mi Historial</div>
-      <span id="session-user-badge" style="font-size:12px;color:var(--carbon-light);font-weight:400;display:none"></span>
-    </div>
-    <h2 class="section-title">Archivos vistos y revisados</h2>
-    <p class="section-sub">Busca, filtra y accede rápidamente a todas las facturas y documentos que ya consultaste.</p>
-
-    <div class="history-top" style="margin-top:32px;">
-      <div class="history-search-wrap">
-        <svg class="history-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input
-          class="history-search"
-          id="history-search-input"
-          type="search"
-          placeholder="Buscar por proveedor, RUT, monto, categoría…"
-          oninput="renderHistory()"
-          aria-label="Buscar en historial"
-        >
-      </div>
-      <div class="history-chips" id="history-chips" role="group" aria-label="Filtros de historial">
-        <button class="history-chip active" data-filter="all" onclick="setHistoryFilter('all',this)">
-          Todos <span class="history-chip-count" id="chip-count-all">0</span>
-        </button>
-        <button class="history-chip" data-filter="aprobado" onclick="setHistoryFilter('aprobado',this)">
-          Aprobados <span class="history-chip-count" id="chip-count-aprobado">0</span>
-        </button>
-        <button class="history-chip" data-filter="pendiente" onclick="setHistoryFilter('pendiente',this)">
-          Pendientes <span class="history-chip-count" id="chip-count-pendiente">0</span>
-        </button>
-        <button class="history-chip" data-filter="revisar" onclick="setHistoryFilter('revisar',this)">
-          Por Revisar <span class="history-chip-count" id="chip-count-revisar">0</span>
-        </button>
-        <button class="history-chip" data-filter="pinned" onclick="setHistoryFilter('pinned',this)">
-          ★ Destacados <span class="history-chip-count" id="chip-count-pinned">0</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="history-stats-bar" id="history-stats-bar" aria-label="Resumen de historial">
-      <div class="hstat"><div class="hstat-val" id="hstat-total">0</div><div class="hstat-label">Documentos vistos</div></div>
-      <div class="hstat-divider" aria-hidden="true"></div>
-      <div class="hstat"><div class="hstat-val" id="hstat-aprobados">0</div><div class="hstat-label">Aprobados</div></div>
-      <div class="hstat-divider" aria-hidden="true"></div>
-      <div class="hstat"><div class="hstat-val" id="hstat-pendientes">0</div><div class="hstat-label">Pendientes</div></div>
-      <div class="hstat-divider" aria-hidden="true"></div>
-      <div class="hstat"><div class="hstat-val" id="hstat-suma">$0</div><div class="hstat-label">Monto acumulado</div></div>
-      <div class="hstat-divider" aria-hidden="true"></div>
-      <div class="hstat"><div class="hstat-val" id="hstat-ultima">—</div><div class="hstat-label">Última consulta</div></div>
-    </div>
-
-    <div class="history-grid" id="history-grid" role="list"></div>
-
-    <div class="history-empty" id="history-empty" aria-live="polite">
-      <div class="history-empty-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      </div>
-      <div class="history-empty-title">Sin resultados</div>
-      <div class="history-empty-sub">No encontramos documentos con ese criterio de búsqueda.<br>Intenta con otro proveedor, monto o categoría.</div>
-    </div>
-  </div>
-</section>
-
-<!-- Session Toast -->
-<div class="session-toast" id="session-toast" role="status" aria-live="polite">
-  <div class="session-toast-dot" aria-hidden="true"></div>
-  <span id="session-toast-msg">Sesión iniciada</span>
-</div>
-
-<script>
-/* ================================================================
-   UTILIDADES GENERALES
-   ================================================================ */
-
-/* FIX: animación de la barra de progreso al entrar en viewport */
-(function initProgress() {
-  const fill = document.getElementById('progress-fill');
-  if (!fill) return;
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) { fill.style.width = '73%'; obs.disconnect(); }
-    }, { threshold: 0.3 });
-    obs.observe(fill);
-  } else {
-    fill.style.width = '73%';
-  }
-})();
-
-/* FIX: menú hamburger mobile */
-function toggleNavMenu() {
-  const links = document.getElementById('nav-links');
-  const btn   = document.getElementById('nav-hamburger');
-  const open  = links.classList.toggle('open');
-  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-}
-
-/* Cerrar menú mobile al hacer clic en un link */
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => {
-    document.getElementById('nav-links').classList.remove('open');
-    document.getElementById('nav-hamburger').setAttribute('aria-expanded', 'false');
-  });
-});
-
-/* FIX: chat flotante toggle */
-function toggleChat() {
-  const bubble = document.getElementById('chat-bubble');
-  if (!bubble) return;
-  bubble.style.display = bubble.style.display === 'none' ? '' : 'none';
-}
-
-/* FIX: formulario de contacto */
-function handleContactSubmit(e) {
-  e.preventDefault();
-  const name  = document.getElementById('contact-name').value.trim();
-  const email = document.getElementById('contact-email').value.trim();
-  const msg   = document.getElementById('contact-msg').value.trim();
-  if (!name || !email || !msg) { alert('Por favor completa todos los campos.'); return; }
-  /* Aquí conectar con tu backend / formulario real */
-  showToast('Mensaje enviado correctamente. Te contactaremos pronto.');
-  e.target.reset();
-}
-
-/* FIX: exportación simulada */
-function handleExport() {
-  const session = loadSession();
-  if (!session) { openModal('login'); return; }
-  showToast('Preparando reporte mensual…');
-  /* En producción: window.location.href = '/api/export/xlsx'; */
-}
-
-/* Tabla filtros */
-function filterTable(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#facturas-table tbody tr').forEach(row => {
-    if (cat === 'all') { row.style.display = ''; return; }
-    const cats = (row.dataset.cat || '').split(' ');
-    row.style.display = cats.includes(cat) ? '' : 'none';
-  });
-}
-
-/* FIX: handler centralizado para PDFs de la tabla */
-function handlePdfClick(e, idx) {
-  e.preventDefault();
-  const session = loadSession();
-  if (!session) { openModal('login'); return; }
-  const row   = document.querySelectorAll('#facturas-table tbody tr')[idx];
-  if (!row) return;
-  const cells      = row.querySelectorAll('td');
-  const amountText = cells[3].textContent.trim();
-  const amountRaw  = parseInt(amountText.replace(/[^0-9]/g, '')) || 0;
-  const statusEl   = cells[5].querySelector('.status-badge');
-  const catEl      = cells[4].querySelector('span');
-  recordView({
-    id:        'tbl-' + idx,
-    provider:  cells[1].textContent.trim(),
-    rut:       cells[2].textContent.trim(),
-    amount:    amountText,
-    amountRaw: amountRaw,
-    category:  catEl  ? catEl.textContent.trim()   : '—',
-    status:    (statusEl ? statusEl.textContent.trim() : '').toLowerCase(),
-    date:      cells[0].textContent.trim()
-  });
-  renderHistory();
-  showToast('Factura registrada en tu historial');
-}
-
-/* ================================================================
-   MODALES
-   ================================================================ */
-function openModal(type) {
-  const overlay = document.getElementById('modal-' + type);
-  if (!overlay) return;
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  /* FIX: foco accesible al primer elemento interactivo */
-  setTimeout(() => {
-    const focusable = overlay.querySelector('button:not(.auth-close), [href], input, [tabindex]');
-    if (focusable) focusable.focus();
-  }, 260);
-}
-
-function closeModal(type) {
-  const overlay = document.getElementById('modal-' + type);
-  if (!overlay) return;
-  overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function switchModal(from, to) {
-  closeModal(from);
-  setTimeout(() => openModal(to), 180);
-}
-
-/* Cerrar al hacer clic fuera */
-document.querySelectorAll('.auth-overlay').forEach(overlay => {
-  overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-});
-
-/* Cerrar con Escape */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.auth-overlay.active').forEach(o => {
-      o.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  }
-});
-
-/* ================================================================
-   PERSISTENCIA — localStorage
-   ================================================================ */
-const STORAGE_SESSION = 'smartaudit_session';
-const STORAGE_HISTORY = 'smartaudit_history';
-
-function saveSession(data) {
-  try { localStorage.setItem(STORAGE_SESSION, JSON.stringify(data)); } catch(e) {}
-}
-
-function loadSession() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_SESSION)); } catch(e) { return null; }
-}
-
-function clearSession() {
-  try { localStorage.removeItem(STORAGE_SESSION); } catch(e) {}
-}
-
-function loadHistory() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_HISTORY)) || []; } catch(e) { return []; }
-}
-
-function saveHistory(arr) {
-  try { localStorage.setItem(STORAGE_HISTORY, JSON.stringify(arr)); } catch(e) {}
-}
-
-function recordView(entry) {
-  const history  = loadHistory();
-  const existing = history.findIndex(h => h.id === entry.id);
-  const record   = {
-    ...entry,
-    viewedAt:  new Date().toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' }),
-    viewCount: existing >= 0 ? (history[existing].viewCount || 1) + 1 : 1,
-    pinned:    existing >= 0 ? (history[existing].pinned || false)    : false
-  };
-  if (existing >= 0) history.splice(existing, 1);
-  history.unshift(record);
-  if (history.length > 200) history.pop();
-  saveHistory(history);
-}
-
-function togglePin(id) {
-  const history = loadHistory();
-  const idx = history.findIndex(h => h.id === id);
-  if (idx >= 0) {
-    history[idx].pinned = !history[idx].pinned;
-    saveHistory(history);
-    renderHistory();
-  }
-}
-
-/* ================================================================
-   NAV SESSION PILL
-   ================================================================ */
-function renderNavSession() {
-  const session     = loadSession();
-  const navAcceder  = document.getElementById('nav-acceder-btn');
-  const existingPill = document.getElementById('nav-user-pill');
-
-  if (session) {
-    if (navAcceder) navAcceder.style.display = 'none';
-
-    const initials = session.name
-      ? session.name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase()
-      : session.email.slice(0,2).toUpperCase();
-
-    if (!existingPill) {
-      const nav  = document.querySelector('nav');
-      const wrap = document.createElement('div');
-      wrap.className = 'nav-user-wrap';
-      wrap.id        = 'nav-user-pill';
-      wrap.innerHTML = `
-        <div class="nav-user-pill" id="nav-pill-btn" onclick="toggleUserDropdown()" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false">
-          <div class="nav-user-avatar" aria-hidden="true">${initials}</div>
-          <span class="nav-user-name">${session.name || session.email}</span>
-          <svg class="nav-user-caret" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="nav-user-dropdown" id="nav-user-dropdown" role="menu">
-          <div class="nav-user-dropdown-header">
-            <div class="nav-user-dropdown-name">${session.name || 'Usuario'}</div>
-            <div class="nav-user-dropdown-email">${session.email}</div>
-          </div>
-          <button class="nav-dropdown-item" onclick="scrollToHistory()" role="menuitem">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-            Mi Historial de Archivos
-          </button>
-          <button class="nav-dropdown-item" onclick="scrollToHistory()" role="menuitem">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            Buscar documentos
-          </button>
-          <div class="nav-dropdown-divider" role="separator"></div>
-          <button class="nav-dropdown-item danger" onclick="logoutSession()" role="menuitem">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Cerrar sesión
-          </button>
-        </div>`;
-      nav.appendChild(wrap);
-    }
-
-    const badge = document.getElementById('session-user-badge');
-    if (badge) { badge.textContent = '— ' + (session.name || session.email); badge.style.display = 'inline'; }
-
-    document.getElementById('historial').classList.add('visible');
-
-    if (!document.getElementById('nav-hist-link')) {
-      const navLinks = document.querySelector('.nav-links');
-      if (navLinks) {
-        const li = document.createElement('li');
-        li.innerHTML = '<a href="#historial" id="nav-hist-link">Historial</a>';
-        navLinks.insertBefore(li, navLinks.lastElementChild);
-      }
-    }
-
-  } else {
-    if (navAcceder) navAcceder.style.display = '';
-    if (existingPill) existingPill.remove();
-    document.getElementById('historial').classList.remove('visible');
-    const navHistLink = document.getElementById('nav-hist-link');
-    if (navHistLink) navHistLink.closest('li').remove();
-  }
-}
-
-function toggleUserDropdown() {
-  const dd  = document.getElementById('nav-user-dropdown');
-  const btn = document.getElementById('nav-pill-btn');
-  if (!dd) return;
-  const isOpen = dd.classList.toggle('open');
-  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-}
-
-document.addEventListener('click', function(e) {
-  const wrap = document.getElementById('nav-user-pill');
-  if (wrap && !wrap.contains(e.target)) {
-    const dd  = document.getElementById('nav-user-dropdown');
-    const btn = document.getElementById('nav-pill-btn');
-    if (dd)  dd.classList.remove('open');
-    if (btn) btn.setAttribute('aria-expanded', 'false');
-  }
-});
-
-function scrollToHistory() {
-  const dd = document.getElementById('nav-user-dropdown');
-  if (dd) dd.classList.remove('open');
-  document.getElementById('historial').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/* ================================================================
-   TOAST
-   ================================================================ */
-function showToast(msg, duration) {
-  duration = duration || 3000;
-  const toast = document.getElementById('session-toast');
-  document.getElementById('session-toast-msg').textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), duration);
-}
-
-/* ================================================================
-   SESIÓN: AUTH GOOGLE (SIMULADO)
-   Reemplazar handleGoogleAuth con tu backend OAuth 2.0 real.
-   Ejemplo: window.location.href = '/auth/google?mode=' + type;
-   ================================================================ */
-function handleGoogleAuth(type) {
-  if (type === 'register') {
-    const checkbox = document.getElementById('terms-check');
-    if (!checkbox.checked) {
-      const row = checkbox.closest('.auth-terms-row');
-      row.style.outline = '2px solid #ef4444';
-      row.style.borderRadius = '6px';
-      row.style.padding = '4px';
-      setTimeout(() => { row.style.outline = ''; row.style.padding = ''; }, 2000);
-      return;
-    }
-  }
-
-  /*
-   * PUNTO DE INTEGRACIÓN:
-   * window.location.href = '/auth/google?mode=' + type;
-   * El backend debe redirigir de vuelta con los datos de usuario
-   * y guardar la sesión del lado del servidor.
-   *
-   * A continuación se simula el retorno de OAuth para demostración:
-   */
-  const mockUser = {
-    name:    type === 'register' ? 'Nuevo Usuario' : 'María González',
-    email:   type === 'register' ? 'nuevo@empresa.cl' : 'mgonzalez@empresa.cl',
-    loginAt: new Date().toISOString()
-  };
-
-  saveSession(mockUser);
-  closeModal(type);
-
-  setTimeout(() => {
-    renderNavSession();
-    prefillHistoryFromTable();
-    renderHistory();
-    showToast(type === 'register'
-      ? '¡Cuenta creada! Bienvenido/a, ' + mockUser.name
-      : 'Sesión iniciada. Hola, ' + mockUser.name
-    );
-  }, 300);
-}
-
-function logoutSession() {
-  clearSession();
-  renderNavSession();
-  renderHistory();
-  showToast('Sesión cerrada correctamente');
-}
-
-/* ================================================================
-   HISTORIAL: PRE-CARGA DESDE TABLA
-   ================================================================ */
-function prefillHistoryFromTable() {
-  if (loadHistory().length > 0) return;
-  const rows = document.querySelectorAll('#facturas-table tbody tr');
-  rows.forEach((row, i) => {
-    const cells      = row.querySelectorAll('td');
-    if (cells.length < 6) return;
-    const amountText = cells[3].textContent.trim();
-    const amountRaw  = parseInt(amountText.replace(/[^0-9]/g, '')) || 0;
-    const statusEl   = cells[5].querySelector('.status-badge');
-    const catEl      = cells[4].querySelector('span');
-    recordView({
-      id:        'tbl-' + i,
-      provider:  cells[1].textContent.trim(),
-      rut:       cells[2].textContent.trim(),
-      amount:    amountText,
-      amountRaw: amountRaw,
-      category:  catEl   ? catEl.textContent.trim()                    : '—',
-      status:    statusEl ? statusEl.textContent.trim().toLowerCase()  : '',
-      date:      cells[0].textContent.trim()
-    });
-  });
-}
-
-/* ================================================================
-   HISTORIAL: RENDER
-   ================================================================ */
-let historyFilter = 'all';
-
-function setHistoryFilter(filter, btn) {
-  historyFilter = filter;
-  document.querySelectorAll('.history-chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  renderHistory();
-}
-
-function renderHistory() {
-  const grid   = document.getElementById('history-grid');
-  const empty  = document.getElementById('history-empty');
-  const search = (document.getElementById('history-search-input').value || '').toLowerCase().trim();
-  let history  = loadHistory();
-
-  const counts = { all: history.length, aprobado: 0, pendiente: 0, revisar: 0, pinned: 0 };
-  history.forEach(h => {
-    if (h.status && counts[h.status] !== undefined) counts[h.status]++;
-    if (h.pinned) counts.pinned++;
-  });
-  Object.entries(counts).forEach(([k, v]) => {
-    const el = document.getElementById('chip-count-' + k);
-    if (el) el.textContent = v;
-  });
-
-  if (historyFilter === 'pinned') {
-    history = history.filter(h => h.pinned);
-  } else if (historyFilter !== 'all') {
-    history = history.filter(h => h.status === historyFilter);
-  }
-
-  if (search) {
-    history = history.filter(h =>
-      (h.provider || '').toLowerCase().includes(search) ||
-      (h.rut      || '').toLowerCase().includes(search) ||
-      (h.amount   || '').toLowerCase().includes(search) ||
-      (h.category || '').toLowerCase().includes(search) ||
-      (h.status   || '').toLowerCase().includes(search) ||
-      (h.date     || '').toLowerCase().includes(search)
-    );
-  }
-
-  const allHistory = loadHistory();
-  const sumTotal   = allHistory.reduce((acc, h) => acc + (h.amountRaw || 0), 0);
-  document.getElementById('hstat-total').textContent      = allHistory.length;
-  document.getElementById('hstat-aprobados').textContent  = counts.aprobado;
-  document.getElementById('hstat-pendientes').textContent = counts.pendiente;
-  document.getElementById('hstat-suma').textContent       = '$' + sumTotal.toLocaleString('es-CL');
-  document.getElementById('hstat-ultima').textContent     = allHistory[0] ? allHistory[0].viewedAt : '—';
-
-  if (history.length === 0) {
-    grid.innerHTML = '';
-    empty.classList.add('visible');
-    return;
-  }
-  empty.classList.remove('visible');
-
-  const statusMap = {
-    aprobado:  { cls: 'status-aprobado',  label: 'Aprobado'  },
-    pendiente: { cls: 'status-pendiente', label: 'Pendiente' },
-    revisar:   { cls: 'status-revisar',   label: 'Revisar'   }
-  };
-
-  const catMap = {
-    'servicios': 'cat-servicios',
-    'insumos':   'cat-insumos',
-    'gastos':    'cat-gastos'
-  };
-
-  grid.innerHTML = history.map(h => {
-    const st       = statusMap[h.status] || { cls: '', label: h.status || '—' };
-    const cat      = catMap[(h.category || '').toLowerCase()] || 'cat-gastos';
-    const pinClass = h.pinned ? 'pinned' : '';
-    /* FIX: escapar comillas en atributos data */
-    const safeId   = String(h.id).replace(/'/g, "\\'");
-    return `
-      <div class="history-card" role="listitem">
-        <button class="history-card-pin ${pinClass}" onclick="event.stopPropagation();togglePin('${safeId}')" title="${h.pinned ? 'Quitar destacado' : 'Destacar'}" aria-label="${h.pinned ? 'Quitar de destacados' : 'Destacar factura'}">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </button>
-        <div class="history-card-top">
-          <div>
-            <div class="history-card-provider">${h.provider}</div>
-            <div class="history-card-date">${h.date}</div>
-          </div>
-        </div>
-        <div class="history-card-amount">${h.amount}</div>
-        <div class="history-card-meta">
-          <span class="${cat}">${h.category}</span>
-          <span class="status-badge ${st.cls}">${st.label}</span>
-          ${h.rut ? `<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--carbon-light)">${h.rut}</span>` : ''}
-        </div>
-        <div class="history-card-viewed">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Visto ${h.viewCount > 1 ? h.viewCount + ' veces · ' : ''}${h.viewedAt}
-        </div>
-      </div>`;
-  }).join('');
-}
-
-/* ================================================================
-   INIT — restaurar sesión al cargar
-   ================================================================ */
-(function init() {
-  const session = loadSession();
-  if (session) {
-    renderNavSession();
-    renderHistory();
-    setTimeout(() => showToast('Sesión activa: ' + (session.name || session.email)), 800);
-  }
-})();
-</script>
-</body>
-</html>
-
+""")
+html.close()
+print("CSS written")
+PYEOF
+python3 /tmp/build_smartaudit.py
